@@ -13,11 +13,11 @@ const LandingPage = () => {
 
               <div className=' flex gap-6 relative'>
               {MenuOpen?<i onClick={()=>setMenuOpen(!MenuOpen)} class="ri-close-large-line text-2xl md:hidden"></i>:<i onClick={()=>setMenuOpen(!MenuOpen)} class="ri-menu-line text-2xl md:hidden"></i>}
-              <button className='hidden md:flex p-2 bg-[#FFE492] text-black rounded-md font-semibold'>Signin</button>
-              <button className='hidden md:flex p-2 bg-[#4F9CF9] text-black rounded-md font-semibold'>SignUp</button>
+              <button className='hidden md:flex p-2 bg-[#FFE492] text-[#043873] rounded-md font-semibold'>Signin</button>
+              <button className='hidden md:flex p-2 bg-[#4F9CF9] text-white rounded-md font-semibold'>SignUp</button>
               {MenuOpen&&<div className='h-[150px] w-[150px] absolute right-0 top-8 md:hidden rounded-md bg-white flex flex-col justify-center items-center gap-7'>
-              <button className='p-2 bg-[#FFE492] text-black rounded-md font-semibold'>Signin</button>
-              <button className='p-2 bg-[#4F9CF9] text-black rounded-md font-semibold'>SignUp</button>
+              <button className='p-2 bg-[#FFE492] text-[#043873] rounded-md font-semibold'>Signin</button>
+              <button className='p-2 bg-[#4F9CF9] text-white rounded-md font-semibold'>SignUp</button>
               </div>}
               </div>
          </nav>
