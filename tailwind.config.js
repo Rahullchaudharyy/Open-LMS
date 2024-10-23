@@ -13,7 +13,8 @@ export default {
         },
       },
       animation: {
-        float: 'float 3s ease-in-out infinite', // Define the float animation
+        float: 'float 3s ease-in-out infinite', 
+// This is the part done for the animation 
       },
     },
   },
