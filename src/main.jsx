@@ -7,7 +7,7 @@ import { Store } from './Store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Auth from './Components/Auth.jsx'
 import LandingPage from './Components/LandingPage.jsx'
-import Home from './Components/Home.jsx'
+import Dashboard from './Components/Dashboard.jsx'
 
 const Router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const Router = createBrowserRouter([
   {
 
     path:'/home',
-    element:<Home/>
+    element:<Dashboard/>
   }
 ])
 

@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+html::-webkit-scrollbar{
+ display: none;
+}
 
 #LandingPage {
     position: relative;
@@ -32,3 +34,18 @@
    background-size: cover;
 }
 
+
+
+.Overflow-Text-Dot {
+    display: -webkit-box; /* Required for the ellipsis to work */
+    -webkit-box-orient: vertical; /* Required for the ellipsis to work */
+    overflow: hidden; /* Hide overflow content */
+    -webkit-line-clamp: 3; /* Limit the text to 3 lines */
+    text-overflow: ellipsis; /* Show ellipsis (...) */
+    max-height: 4.5em; /* Adjust to the number of lines you want (3 lines * line-height) */
+    line-height: 1.5em; /* Adjust this to your desired line height */
+}
+
+#Para-Div::-webkit-scrollbar{
+  display: none;
+}

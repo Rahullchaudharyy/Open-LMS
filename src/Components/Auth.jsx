@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
     const [IsSignUp, setIsSignUp] = useState(true)
+    const [loading, setloading] = useState(false)
     const navigate = useNavigate()
    const [Name, setName] = useState('')
    const [Email, setEmail] = useState('')
@@ -17,6 +18,7 @@ const Auth = () => {
    const HandleSignUp = async(e)=>{
     e.preventDefault()
        try {
+        setloading(true)
           const UserCredentials = await createUserWithEmailAndPassword(auth,Email,Password)
           const user = UserCredentials.user;
 
@@ -26,8 +28,10 @@ const Auth = () => {
           console.log("User created successfully ", user)
         onAuthStateChanged(auth,(user)=>{
             if (user) {
+              setloading(false)
                 navigate('/home')
                 toast.success("Registration has been completed")
+                toast.success(`Welcome ${user.displayName}`)
             } else{
                 navigate('/auth')
             }
@@ -36,6 +40,8 @@ const Auth = () => {
        } catch (error) {
           console.log(error.message)
           toast.error(error.message == 'Firebase: Error (auth/email-already-in-use).' ? 'User already exists':error.message)
+          setloading(false)
+
        }
    }
 
@@ -43,12 +49,15 @@ const Auth = () => {
     e.preventDefault();
 
     try {
+      setloading(false)
+
         const userCredential = await signInWithEmailAndPassword(auth, Email, Password);
         console.log("User logged in", userCredential);
 
         navigate('/home');
         toast.success("User logged in successfully");
     } catch (error) {
+      setloading(false)
         console.error("Error during sign-in:", error.message);
         toast.error("Error logging in: " + error.message + "WIth the email "+ Email); // Notify user about the error
     }
@@ -67,6 +76,7 @@ const Auth = () => {
    
    const HandleResetPassword = async()=>{
     try {
+        
       await  sendPasswordResetEmail(auth,EmailForReset)
       setResetingPassword(false)
       toast.success("Password reset email sent!");
@@ -104,9 +114,9 @@ const Auth = () => {
             <input value={Email} onChange={(e)=>setEmail(e.target.value)} className='p-4 outline-none focus:border-gray-800 transition-opacity border-b-2 border-gray-500' type="text" placeholder='Email' />
             <label htmlFor="Username" className='text-sm'>Password</label>
             <input value={Password} onChange={(e)=>setPassword(e.target.value)} className='p-4 outline-none focus:border-gray-800 transition-opacity border-b-2 border-gray-500' type="text" placeholder='Password' />
-            <span className='flex items-center  gap-4'><input type="checkbox" className='rounded-full h-[20px] w-[20px] ' />  Show the password <button type='submit' className='bg-purple-500 p-3  fixed md:right-[4.9rem] right-9 text-white rounded-full mt-3'>SignUp</button></span> 
+            <span className='flex items-center  gap-4'><input type="checkbox" className='rounded-full h-[20px] w-[20px] ' />  Show the password <button type='submit' className={`bg-purple-500 p-3 ${loading?'cursor-not-allowed bg-purple-400':'cursor-pointer'}  fixed md:right-[4.9rem] right-9 text-white rounded-full mt-3`}>SignUp</button></span> 
         </form>
-        <h1 className=''>Already have an account ? <button onClick={()=>setIsSignUp(!IsSignUp)} className='border-b border-b-blue-600 bg-none'>SignIn</button></h1>
+        <h1 className=''>Already have an account ? <button onClick={()=>setIsSignUp(!IsSignUp)} className={`border-b ${loading?'cursor-not-allowed':'cursor-pointer'} border-b-blue-600 bg-none`}>SignIn</button></h1>
 
         </div>:<div className='flex flex-col gap-9'>
             <div className='flex flex-col justify-center items-center gap-11'>
@@ -119,7 +129,7 @@ const Auth = () => {
             <input value={Email} onChange={(e)=>setEmail(e.target.value)} className='p-4 outline-none focus:border-gray-800 transition-opacity border-b-2 border-gray-500' type="text" placeholder='Email' />
             <label htmlFor="Username" className='text-sm'>Password</label>
             <input value={Password} onChange={(e)=>setPassword(e.target.value)} className='p-4 outline-none focus:border-gray-800 transition-opacity border-b-2 border-gray-500' type="text" placeholder='Password' />
-            <span className='flex items-center  gap-4'><input type="checkbox" className='rounded-full h-[20px] w-[20px] ' />  Show the password <button type='submit' className='bg-purple-500 p-3  fixed md:right-[4.9rem] right-9 text-white rounded-full mt-3'>Signin</button></span>
+            <span className='flex items-center  gap-4'><input type="checkbox" className='rounded-full h-[20px] w-[20px] ' />  Show the password <button type='submit' className={`bg-purple-500 p-3 ${loading?'cursor-not-allowed bg-purple-400':'cursor-pointer'}  fixed md:right-[4.9rem] right-9 text-white rounded-full mt-3`}>Signin</button></span>
             <h1 onClick={()=>setResetingPassword(true)} className='text-blue-600 cursor-pointer'>Forgot password ?</h1> 
         </form>
          <h1 className=''>Don't have an account ? <button onClick={()=>setIsSignUp(!IsSignUp)} className='border-b border-b-blue-600 bg-none'>Register</button></h1>
