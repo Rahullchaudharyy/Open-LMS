@@ -7,6 +7,7 @@ const Store = configureStore({
      reducer:{
         user:userReducer,
       //   resource:resourcesReducer
+          // When I am adding this then its creating a problem in the prop 
      },
     
 })
