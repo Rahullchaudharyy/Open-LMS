@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const Resources = ({IsCreating}) => {
+  console.log(IsCreating)
   const [Preview, setPreview] = useState(false);
   const [IsEditing, setIsEditing] = useState(false);
 
@@ -17,7 +18,7 @@ const Resources = ({IsCreating}) => {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      console.log({ title, description, resourceLink, imageURL, uploadImage });
+      const ResourceDataInputs = ({ title, description, resourceLink, imageURL, uploadImage });
       setImageURL('');
       setTitle('');
       setDescription('');
